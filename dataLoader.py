@@ -13,11 +13,12 @@ def load_wiki_corpus(input_file, output_file):
     """Convert Wikipedia xml dump file to text corpus"""
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-    wiki = WikiCorpus(input_file, metadata=True)
+    wiki = WikiCorpus(input_file, metadata=True, dictionary={})
     i = 0
     # Convert the wiki corpus to text json format   
     out_json = {}
     for text in wiki.get_texts():
+        out_json[text[1][0]] = {}
         # (content_tokens, (page_id, page_title))
         out_json[text[1][0]]["text"] = text[0]
         out_json[text[1][0]]["title"] = text[1][1]
