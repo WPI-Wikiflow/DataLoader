@@ -131,3 +131,4 @@ dmypy.json
 *.xml
 *.bz2
 *.json
+*.tmp
