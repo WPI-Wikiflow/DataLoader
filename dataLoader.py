@@ -52,6 +52,7 @@ def load_wiki_corpus(input_file, output_file):
     
 
 if __name__ == '__main__':
+    nltk.download('omw-1.4')
     folder = "wikiData/"
     # Find the list of dumps by scraping https://dumps.wikimedia.org/enwiki/latest/
     page = requests.get('https://dumps.wikimedia.org/enwiki/latest/')
