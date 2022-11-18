@@ -10,7 +10,6 @@ from bs4 import BeautifulSoup as bs
 import json
 import pandas as pd
 import nltk
-from multiprocessing import Pool
 
 def clean_text(text):
     out = []
@@ -50,20 +49,7 @@ def load_wiki_corpus(input_file, output_file):
     # Save the dataframe
     df.to_pickle(output_file)
     print(f"Saved {output_file}")
-
-
-def download_and_process(data_in):
-    folder = data_in[0]
-    dump = data_in[1]
-    dump_file = folder + dump
-    print(f"Processing {dump}")
-    if not os.path.exists(dump_file):
-        print(f"Downloading {dump} to {dump_file}")
-        wget.download(f'https://dumps.wikimedia.org/enwiki/latest/{dump}', out=folder)
-
-    output_file = folder + re.sub(r"\.xml(-\w+)\.bz2$", lambda match: f'{match.group(1)}.json', dump) 
-    print(f"Output file: {output_file}")
-    load_wiki_corpus(dump_file, output_file)
+    
 
 if __name__ == '__main__':
     nltk.download('omw-1.4')
@@ -75,11 +61,13 @@ if __name__ == '__main__':
     # https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles1.xml-p1p41242.bz2-rss.xml
     dumps = [link.get('href') for link in links if "enwiki-latest-pages-articles" in link.get('href') and "xml-" in link.get('href') and "rss" not in link.get('href')]
     print(dumps)
-    # Get number of cpu cores
-    num_cores = os.cpu_count()
-    with Pool(num_cores) as p:
-        p.map(download_and_process, [(folder, dump) for dump in dumps])
+    for dump in dumps:
+        dump_file = folder + dump
+        print(f"Processing {dump}")
+        if not os.path.exists(dump_file):
+            print(f"Downloading {dump} to {dump_file}")
+            wget.download(f'https://dumps.wikimedia.org/enwiki/latest/{dump}', out=folder)
 
-
-
-    
+        output_file = result = folder + re.sub(r"\.xml(-\w+)\.bz2$", lambda match: f'{match.group(1)}.json', dump) 
+        print(f"Output file: {output_file}")
+        load_wiki_corpus(dump_file, output_file)
