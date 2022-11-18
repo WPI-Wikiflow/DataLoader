@@ -35,14 +35,14 @@ def load_wiki_corpus(input_file, output_file):
 
     wiki = WikiCorpus(input_file, metadata=True, dictionary={})
     i = 0
-    df = pd.DataFrame(columns=['title', 'id', 'text', 'clean_text'])
+    df = pd.DataFrame(columns=['title', 'id', 'text'])
     # Convert the wiki corpus to a pandas dataframe
     for text in wiki.get_texts():
         title = text[1][1]
         textID = text[1][0]
-        cleaned_text = clean_text(text[0])
+        # cleaned_text = clean_text(text[0])
         # Convert to pandas dataframe
-        df.loc[i] = [title, textID, text[0], cleaned_text]
+        df.loc[i] = [title, textID, text[0]]
         i += 1
         if i % 10000 == 0:
             print(f"Processed {i} articles")
