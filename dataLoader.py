@@ -52,7 +52,9 @@ def load_wiki_corpus(input_file, output_file):
     print(f"Saved {output_file}")
 
 
-def download_and_process(folder, dump): 
+def download_and_process(data_in):
+    folder = data_in[0]
+    dump = data_in[1]
     dump_file = folder + dump
     print(f"Processing {dump}")
     if not os.path.exists(dump_file):
@@ -76,7 +78,7 @@ if __name__ == '__main__':
     # Get number of cpu cores
     num_cores = os.cpu_count()
     with Pool(num_cores) as p:
-        p.map(download_and_process, [folder] * len(dumps), dumps)
+        p.map(download_and_process, [(folder, dump) for dump in dumps])
 
 
 
