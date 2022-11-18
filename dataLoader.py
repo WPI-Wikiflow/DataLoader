@@ -68,6 +68,6 @@ if __name__ == '__main__':
             print(f"Downloading {dump} to {dump_file}")
             wget.download(f'https://dumps.wikimedia.org/enwiki/latest/{dump}', out=folder)
 
-        output_file = result = folder + re.sub(r"\.xml(-\w+)\.bz2$", lambda match: f'{match.group(1)}.json', dump) 
+        output_file = result = folder + re.sub(r"\.xml(-\w+)\.bz2$", lambda match: f'{match.group(1)}.pkl', dump) 
         print(f"Output file: {output_file}")
         load_wiki_corpus(dump_file, output_file)
