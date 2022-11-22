@@ -10,6 +10,8 @@ import re
 def clean_text(text):
     out = []
     for word in text:
+        if word in nltk.corpus.stopwords.words('english'):
+            continue
         word = re.sub(r'[^a-zA-Z0-9\s]', '', word)
         # Remove new line characters
         word = word.replace("\\n", " ")
@@ -17,8 +19,7 @@ def clean_text(text):
         word = re.sub(r'\s+', ' ', word)
         word = word.lower()
         # Remove the stopwords
-        if word in nltk.corpus.stopwords.words('english'):
-            continue
+
         # Lemmatize the word
         word = nltk.stem.WordNetLemmatizer().lemmatize(word)
         out.append(word)
