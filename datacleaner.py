@@ -6,7 +6,6 @@ from multiprocessing import Pool
 import json
 import os
 import re
-import swifter
 
 def clean_text(text):
     out = []
