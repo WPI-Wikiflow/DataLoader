@@ -6,6 +6,7 @@ from multiprocessing import Pool
 import json
 import os
 import re
+import swifter
 
 def clean_text(text):
     out = []
@@ -37,8 +38,10 @@ if __name__ == "__main__":
         # Get the first 10 articles
         # df = df.head(10)
         # Clean the text
-        df['text'] = df['text'].apply(clean_text)
-        print
+        with Pool(os.cpu_count()) as p:
+            df['text'] = p.map(clean_text, df['text'])
+        # Print the first 10 articles
+        print(df.head(10))
         # Save the dataframe to file-cleaned.plk
         df.to_pickle(os.path.join(folder, file.replace(".pkl", "-cleaned.pkl")))
         print(f"Saved {file.replace('.pkl', '-cleaned.pkl')}")
