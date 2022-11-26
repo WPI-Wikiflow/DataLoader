@@ -34,18 +34,19 @@ if __name__ == "__main__":
     for file in files:
         # Check if the file is already converted
         if os.path.exists(os.path.join(folder, file.replace(".pkl", "-cleaned.pkl"))):
-            continue
-        print(f"Processing {file}")
-        df = pd.read_pickle(os.path.join(folder, file))
+            print(f"Skipping {file}")
+        else:
+            print(f"Processing {file}")
+            df = pd.read_pickle(os.path.join(folder, file))
 
-        # Get the first 10 articles
-        # df = df.head(10)
-        # Clean the text
-        with Pool(os.cpu_count()) as p:
-            df['text'] = p.map(clean_text, df['text'])
-        # Print the first 10 articles
-        print(df.head(10))
-        # Save the dataframe to file-cleaned.plk
-        df.to_pickle(os.path.join(folder, file.replace(".pkl", "-cleaned.pkl")))
-        print(f"Saved {file.replace('.pkl', '-cleaned.pkl')}")
+            # Get the first 10 articles
+            # df = df.head(10)
+            # Clean the text
+            with Pool(os.cpu_count()) as p:
+                df['text'] = p.map(clean_text, df['text'])
+            # Print the first 10 articles
+            print(df.head(10))
+            # Save the dataframe to file-cleaned.plk
+            df.to_pickle(os.path.join(folder, file.replace(".pkl", "-cleaned.pkl")))
+            print(f"Saved {file.replace('.pkl', '-cleaned.pkl')}")
 
