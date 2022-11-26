@@ -32,6 +32,9 @@ if __name__ == "__main__":
     print(files)
     # Convert the files to a pandas dataframe
     for file in files:
+        # Check if the file is already converted
+        if os.path.exists(os.path.join(folder, file.replace(".pkl", "-cleaned.pkl"))):
+            continue
         print(f"Processing {file}")
         df = pd.read_pickle(os.path.join(folder, file))
 
