@@ -22,10 +22,9 @@ class MyCorpus():
             files = [file for file in os.listdir(self.folder) if file.endswith("-cleaned.pkl")]
             print(files)
             # Convert the files to a pandas dataframe
-            
             for file in files:
                 try:
-                    print(f"Processing {file}")
+                    # print(f"Processing {file}")
                     df = pd.read_pickle(os.path.join(self.folder, file))
                     for text, title, id in zip(df['text'], df['title'], df['id']):
                         yield gensim.models.doc2vec.TaggedDocument(text, [title, id])
@@ -35,8 +34,6 @@ class MyCorpus():
 
 if __name__ == "__main__":
     data = MyCorpus()
-
-
     model = gensim.models.doc2vec.Doc2Vec(vector_size=300, min_count=2, epochs=40, workers=os.cpu_count())
     pickle.dump(model, open("model.pickle", 'wb'))  
     model.build_vocab(data)
