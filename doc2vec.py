@@ -34,7 +34,7 @@ class MyCorpus():
 
 if __name__ == "__main__":
     data = MyCorpus()
-    model = gensim.models.doc2vec.Doc2Vec(vector_size=300, min_count=2, epochs=40, workers=os.cpu_count())
+    model = gensim.models.doc2vec.Doc2Vec(vector_size=300, min_count=2, epochs=300, workers=os.cpu_count())
     pickle.dump(model, open("model.pickle", 'wb'))  
     model.build_vocab(data)
     model.train(data, total_examples=model.corpus_count, epochs=model.epochs)
