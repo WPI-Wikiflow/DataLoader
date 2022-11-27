@@ -22,13 +22,16 @@ class MyCorpus():
             files = [file for file in os.listdir(self.folder) if file.endswith("-cleaned.pkl")]
             print(files)
             # Convert the files to a pandas dataframe
+            
             for file in files:
-                print(f"Processing {file}")
-                df = pd.read_pickle(os.path.join(self.folder, file))
-                for text, title, id in zip(df['text'], df['title'], df['id']):
-                    # Print the title of the article
-                    print(title)
-                    yield gensim.models.doc2vec.TaggedDocument(words=text, tags=[id])
+                try:
+                    print(f"Processing {file}")
+                    df = pd.read_pickle(os.path.join(self.folder, file))
+                    for text, title, id in zip(df['text'], df['title'], df['id']):
+                        yield gensim.models.doc2vec.TaggedDocument(text, [title, id])
+                except Exception as e:
+                    print(f"Error: {e}")
+                    continue
 
 if __name__ == "__main__":
     data = MyCorpus()
