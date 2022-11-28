@@ -4,4 +4,4 @@
 #SBATCH --mem 10G
 #SBATCH -p long
 
-python dataLoader.py
+python doc2vec.py
