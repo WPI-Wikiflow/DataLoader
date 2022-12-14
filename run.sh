@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH -N 1
-#SBATCH -c 10
-#SBATCH --mem 30G
+#SBATCH -c 32
+#SBATCH --mem 64G
 
-python dataLoader.py
+python datacleaner.py
