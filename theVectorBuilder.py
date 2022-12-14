@@ -41,11 +41,12 @@ for text in df['text']:
 df['vector'] = vectors
 
 
+
 # Convert the vectors to a string without the brackets and scientific notation
 
 
 
 # Save the dataframe as a csv with the following columns:
 # vector, title, id (in that order)
-df.to_csv("needDtoVFinalWithVectors.csv", columns=['vector', 'title','summary', 'id'])
+df.to_csv("needDtoVFinalWithVectors.csv", columns=['vector', 'title', 'id', 'summary'], sep="\t")
 
