@@ -44,7 +44,7 @@ for i in range(10):
     bestMatchIndex = 0
     for j in range(len(vectors)):
         if i != j:
-            sim = cosine_similarity(vectors[i].reshape(1,-1), vectors[j].reshape(1,-1))
+            sim = cosine_similarity(vectors[i], vectors[j])
             if sim > bestMatch:
                 bestMatch = sim
                 bestMatchIndex = j
