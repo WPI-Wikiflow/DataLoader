@@ -20,7 +20,7 @@ model = gensim.models.doc2vec.Doc2Vec.load("doc2vec.model")
 
 # Load the csv file
 import pandas as pd
-df = pd.read_csv("needDtoVFinal.csv")
+df = pd.read_csv("needDtoVFinal.tsv", sep="\t")
 # Print the columns
 print(df.columns)
 
@@ -49,5 +49,5 @@ df['vector'] = vectors
 
 # Save the dataframe as a csv with the following columns:
 # vector, title, id (in that order)
-df.to_csv("needDtoVFinalWithVectors.csv", columns=['vector', 'title', 'id', 'summary'], sep="\t")
+df.to_csv("needDtoVFinalWithVectors2.csv", columns=['vector', 'title', 'id', 'summary'], sep="\t")
 
