@@ -27,7 +27,16 @@ print(df.columns)
 # Get the vectors for each article
 vectors = []
 for thing, text in enumerate(df['text']):
-    print(thing)
+    text = text.split()
+    # Remove all commas from the text
+    text = [word.replace(",", "") for word in text]
+    # Remove all backets from the text
+    text = [word.replace("[", "") for word in text]
+    text = [word.replace("]", "") for word in text]
+    # Remove all ' from the text
+    text = [word.replace("'", "") for word in text]
+    # Print the first 10 words of the text
+    print(text[:10])
     out_string = ""
     vector = model.infer_vector(text)
     for i in range(len(vector)):
