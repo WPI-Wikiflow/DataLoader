@@ -26,9 +26,10 @@ print(df.columns)
 
 # Get the vectors for each article
 vectors = []
-for text in df['text']:
+for thing, text in enumerate(df['text']):
+    print(thing)
     out_string = ""
-    vector = model.infer_vector(text.split(" "))
+    vector = model.infer_vector(text)
     for i in range(len(vector)):
         if i == len(vector) - 1:
             out_string += float_to_str(vector[i])
